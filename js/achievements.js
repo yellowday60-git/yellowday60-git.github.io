@@ -5,7 +5,7 @@ let completedAchievements = [];
 
 async function fetchAchievements() {
   try {
-    const response = await fetch('achievements.json');
+    const response = await fetch('data/achievements.json');
     if (!response.ok) {
       throw new Error('Failed to fetch achievements');
     }
