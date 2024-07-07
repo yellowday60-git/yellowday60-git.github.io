@@ -1,11 +1,9 @@
-// scripts.js
-
 let achievements = [];
 let completedAchievements = [];
 
 async function fetchAchievements() {
   try {
-    const response = await fetch('data/achievements.json');
+    const response = await fetch('http://64.110.110.12:5000/achievements');
     if (!response.ok) {
       throw new Error('Failed to fetch achievements');
     }
@@ -14,6 +12,47 @@ async function fetchAchievements() {
     renderAchievements();
   } catch (error) {
     console.error('Error fetching achievements:', error.message);
+  }
+}
+
+async function fetchCompletedAchievements() {
+  try {
+    const response = await fetch('http://64.110.110.12:5000/completed');
+    if (!response.ok) {
+      throw new Error('Failed to fetch completed achievements');
+    }
+    completedAchievements = await response.json();
+    console.log('Completed Achievements loaded:', completedAchievements);
+    renderAchievements();
+  } catch (error) {
+    console.error('Error fetching completed achievements:', error.message);
+  }
+}
+
+async function completeAchievement(id) {
+  try {
+    const response = await fetch('http://64.110.110.12:5000/complete', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id })
+    });
+    if (!response.ok) {
+      throw new Error('Failed to complete achievement');
+    }
+    const data = await response.json();
+    completedAchievements = data.completed;
+    const achievementElement = document.querySelector(`.achievement:has(button[onclick="completeAchievement(${id})"])`);
+    if (achievementElement) {
+      achievementElement.classList.add('just-completed');
+      setTimeout(() => {
+        achievementElement.classList.remove('just-completed');
+      }, 500);
+    }
+    renderAchievements(getCurrentFilter());
+  } catch (error) {
+    console.error('Error completing achievement:', error.message);
   }
 }
 
@@ -56,21 +95,6 @@ function isAchievementAvailable(achievement) {
   return completedAchievements.includes(achievement.prerequisite) && !completedAchievements.includes(achievement.id);
 }
 
-function completeAchievement(id) {
-  if (!completedAchievements.includes(id)) {
-    completedAchievements.push(id);
-    const achievementElement = document.querySelector(`.achievement:has(button[onclick="completeAchievement(${id})"])`);
-    if (achievementElement) {
-      achievementElement.classList.add('just-completed');
-      setTimeout(() => {
-        achievementElement.classList.remove('just-completed');
-      }, 500);
-    }
-    renderAchievements(getCurrentFilter());
-    saveCompletedAchievements();
-  }
-}
-
 function getCurrentFilter() {
   return document.querySelector('.filter-btn.active').dataset.filter;
 }
@@ -83,15 +107,5 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
-function saveCompletedAchievements() {
-  localStorage.setItem('completedAchievements', JSON.stringify(completedAchievements));
-}
-
-// Load completed achievements from localStorage
-const savedCompletedAchievements = localStorage.getItem('completedAchievements');
-if (savedCompletedAchievements) {
-  completedAchievements = JSON.parse(savedCompletedAchievements);
-}
-
-// Fetch achievements from JSON file
 fetchAchievements();
+fetchCompletedAchievements();
