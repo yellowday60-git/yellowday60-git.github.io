@@ -1,0 +1,164 @@
+[
+    {
+        "id": 1,
+        "name": "일찍 일어나는 새",
+        "description": "아침에 7시 이전 기상 1회",
+        "prerequisite": null
+    },
+    {
+        "id": 2,
+        "name": "아침형 인간",
+        "description": "아침에 7시 이전 기상 7회",
+        "prerequisite": 1
+    },
+    {
+        "id": 3,
+        "name": "이른 새의 승리",
+        "description": "아침에 7시 이전 기상 30회",
+        "prerequisite": 2
+    },
+    {
+        "id": 4,
+        "name": "스트레칭 시작",
+        "description": "하루 10분 스트레칭 1회",
+        "prerequisite": null
+    },
+    {
+        "id": 5,
+        "name": "스트레칭 루틴",
+        "description": "하루 10분 스트레칭 7회",
+        "prerequisite": 4
+    },
+    {
+        "id": 6,
+        "name": "유연성 챔피언",
+        "description": "하루 10분 스트레칭 30회",
+        "prerequisite": 5
+    },
+    {
+        "id": 7,
+        "name": "운동 첫걸음",
+        "description": "30분 운동 1회",
+        "prerequisite": null
+    },
+    {
+        "id": 8,
+        "name": "운동 습관",
+        "description": "30분 운동 7회",
+        "prerequisite": 7
+    },
+    {
+        "id": 9,
+        "name": "운동 매니아",
+        "description": "30분 운동 30회",
+        "prerequisite": 8
+    },
+    {
+        "id": 10,
+        "name": "첫 달리기",
+        "description": "1km 달리기 1회",
+        "prerequisite": null
+    },
+    {
+        "id": 11,
+        "name": "달리기 마라토너",
+        "description": "5km 달리기 1회",
+        "prerequisite": 10
+    },
+    {
+        "id": 12,
+        "name": "달리기 챔피언",
+        "description": "10km 달리기 1회",
+        "prerequisite": 11
+    },
+    {
+        "id": 13,
+        "name": "걸음마 시작",
+        "description": "하루 5000보 걷기 1회",
+        "prerequisite": null
+    },
+    {
+        "id": 14,
+        "name": "걷기 여행자",
+        "description": "하루 10000보 걷기 1회",
+        "prerequisite": 13
+    },
+    {
+        "id": 15,
+        "name": "걷기 마스터",
+        "description": "하루 10000보 걷기 30회",
+        "prerequisite": 14
+    },
+    {
+        "id": 16,
+        "name": "절약의 시작",
+        "description": "일주일 동안 1회 외식 안하기",
+        "prerequisite": null
+    },
+    {
+        "id": 17,
+        "name": "절약 전문가",
+        "description": "일주일 동안 외식 안하기 4회",
+        "prerequisite": 16
+    },
+    {
+        "id": 18,
+        "name": "절약 마스터",
+        "description": "한 달 동안 외식 안하기 1회",
+        "prerequisite": 17
+    },
+    {
+        "id": 19,
+        "name": "저축 첫걸음",
+        "description": "한 달에 저축 10만원 이상",
+        "prerequisite": null
+    },
+    {
+        "id": 20,
+        "name": "저축 왕",
+        "description": "한 달에 저축 50만원 이상",
+        "prerequisite": 19
+    },
+    {
+        "id": 21,
+        "name": "저축 챔피언",
+        "description": "한 달에 저축 100만원 이상",
+        "prerequisite": 20
+    },
+    {
+        "id": 22,
+        "name": "주식 투자자",
+        "description": "주식 계좌에 100만원 이상 투자",
+        "prerequisite": null
+    },
+    {
+        "id": 23,
+        "name": "주식 전문가",
+        "description": "주식 계좌에 500만원 이상 투자",
+        "prerequisite": 22
+    },
+    {
+        "id": 24,
+        "name": "주식 마스터",
+        "description": "주식 계좌에 1000만원 이상 투자",
+        "prerequisite": 23
+    },
+    {
+        "id": 25,
+        "name": "배당금 수집가",
+        "description": "월 배당금 10만원 이상",
+        "prerequisite": null
+    },
+    {
+        "id": 26,
+        "name": "배당금 전문가",
+        "description": "월 배당금 50만원 이상",
+        "prerequisite": 25
+    },
+    {
+        "id": 27,
+        "name": "배당금 챔피언",
+        "description": "월 배당금 100만원 이상",
+        "prerequisite": 26
+    }
+]
