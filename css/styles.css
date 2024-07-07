@@ -1,5 +1,6 @@
 /* styles.css */
 
+
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -8,69 +9,70 @@ body {
     margin: 0 auto;
     padding: 20px;
     background-color: #f4f4f4;
-  }
-  
-  h1 {
+}
+
+h1 {
     text-align: center;
     color: #2c3e50;
-  }
-  
-  .achievement {
+}
+
+.achievement {
     background-color: white;
     border-radius: 5px;
     padding: 15px;
     margin-bottom: 15px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     transition: all 0.3s ease;
-  }
-  
-  .achievement:hover {
+    position: relative;
+}
+
+.achievement:hover {
     transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-  }
-  
-  .achievement-info {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.achievement-info {
     flex-grow: 1;
-  }
-  
-  .achievement h3 {
+}
+
+.achievement h3 {
     margin: 0 0 10px 0;
     color: #34495e;
-  }
-  
-  .achievement p {
+}
+
+.achievement p {
     margin: 0;
     color: #7f8c8d;
-  }
-  
-  .achievement-status {
+}
+
+.achievement-status {
     margin-left: 15px;
     flex-shrink: 0;
-  }
-  
-  .achievement-complete {
+}
+
+.achievement-complete {
     color: #27ae60;
     font-weight: bold;
-  }
-  
-  .achievement-incomplete {
+}
+
+.achievement-incomplete {
     color: #e74c3c;
-  }
-  
-  .achievement svg {
+}
+
+.achievement svg {
     width: 24px;
     height: 24px;
     margin-right: 10px;
-  }
-  
-  .filters {
+}
+
+.filters {
     margin-bottom: 20px;
     text-align: center;
-  }
-  
-  .filter-btn {
+}
+
+.filter-btn {
     background-color: #3498db;
     color: white;
     border: none;
@@ -79,23 +81,52 @@ body {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-  }
-  
-  .filter-btn:hover {
+}
+
+.filter-btn:hover {
     background-color: #2980b9;
-  }
-  
-  .filter-btn.active {
+}
+
+.filter-btn.active {
     background-color: #2c3e50;
-  }
-  
-  @keyframes achievementComplete {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-  }
-  
-  .achievement.just-completed {
+}
+
+@keyframes achievementComplete {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.achievement.just-completed {
     animation: achievementComplete 0.5s ease;
-  }
-  
+}
+
+.prerequisite-tooltip {
+    visibility: hidden;
+    width: 200px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.achievement:hover .prerequisite-tooltip {
+    visibility: visible;
+    opacity: 1;
+}

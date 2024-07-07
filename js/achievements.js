@@ -59,35 +59,53 @@ async function completeAchievement(id) {
 }
 
 function renderAchievements(filter = 'all') {
-  const achievementsList = document.getElementById('achievements-list');
-  achievementsList.innerHTML = '';
+    const achievementsList = document.getElementById('achievements-list');
+    achievementsList.innerHTML = '';
 
-  achievements.forEach(achievement => {
-    if (
-      (filter === 'all') ||
-      (filter === 'incomplete' && !completedAchievements.includes(achievement.id)) ||
-      (filter === 'available' && isAchievementAvailable(achievement)) ||
-      (filter === 'completed' && completedAchievements.includes(achievement.id))
-    ) {
-      const achievementElement = document.createElement('div');
-      achievementElement.className = 'achievement';
-      achievementElement.innerHTML = `
-        <div class="achievement-info">
-          <h3>${achievement.name}</h3>
-          <p>${achievement.description}</p>
-        </div>
-        <div class="achievement-status">
-          ${completedAchievements.includes(achievement.id) 
+    achievements.forEach(achievement => {
+        if (
+            (filter === 'all') ||
+            (filter === 'incomplete' && !completedAchievements.includes(achievement.id)) ||
+            (filter === 'available' && isAchievementAvailable(achievement)) ||
+            (filter === 'completed' && completedAchievements.includes(achievement.id))
+        ) {
+            const achievementElement = createAchievementElement(achievement);
+            achievementsList.appendChild(achievementElement);
+        }
+    });
+}
+
+function createAchievementElement(achievement) {
+    const achievementElement = document.createElement('div');
+    achievementElement.className = 'achievement';
+
+    const achievementInfo = document.createElement('div');
+    achievementInfo.className = 'achievement-info';
+    achievementInfo.innerHTML = `
+        <h3>${achievement.name}</h3>
+        <p>${achievement.description}</p>
+        ${achievement.prerequisite ? `<div class="prerequisite-tooltip">선행 조건: ${getPrerequisiteName(achievement.prerequisite)}</div>` : ''}
+    `;
+    achievementElement.appendChild(achievementInfo);
+
+    const achievementStatus = document.createElement('div');
+    achievementStatus.className = 'achievement-status';
+    achievementStatus.innerHTML = `
+        ${completedAchievements.includes(achievement.id) 
             ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#27ae60">
-                <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/>
+                   <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/>
                </svg>`
             : `<button onclick="completeAchievement(${achievement.id})">완료</button>`
-          }
-        </div>
-      `;
-      achievementsList.appendChild(achievementElement);
-    }
-  });
+        }
+    `;
+    achievementElement.appendChild(achievementStatus);
+
+    return achievementElement;
+}
+
+function getPrerequisiteName(prerequisiteId) {
+    const prerequisite = achievements.find(a => a.id === prerequisiteId);
+    return prerequisite ? prerequisite.name : '알 수 없음';
 }
 
 function isAchievementAvailable(achievement) {
