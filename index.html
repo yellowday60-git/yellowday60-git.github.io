@@ -1,22 +1,27 @@
+<!-- index.html -->
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>업적 관리 시스템</title>
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>업적 추적기</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>나의 업적 리스트</h1>
-    
-    <div id="achievements">
-        <h2>전체 업적</h2>
-        <ul id="achievement-list">
-            <!-- 업적 리스트가 여기에 동적으로 추가될 예정 -->
-        </ul>
-    </div>
+  <h1>업적 추적기</h1>
 
-    <script src="js/achievements.js"></script>
-    <script src="js/main.js"></script>
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">모두 보기</button>
+    <button class="filter-btn" data-filter="incomplete">미완료 업적</button>
+    <button class="filter-btn" data-filter="available">달성 가능 업적</button>
+    <button class="filter-btn" data-filter="completed">달성한 업적</button>
+  </div>
+
+  <div id="achievements-list">
+    <!-- Achievements will be dynamically rendered here -->
+  </div>
+
+  <script src="achievements.js"></script>
 </body>
 </html>
