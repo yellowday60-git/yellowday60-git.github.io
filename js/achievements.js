@@ -3,7 +3,7 @@ let completedAchievements = [];
 
 async function fetchAchievements() {
   try {
-    const response = await fetch('//64.110.110.12:5000/achievements');
+    const response = await fetch('http://64.110.110.12:5000/achievements');
     if (!response.ok) {
       throw new Error('Failed to fetch achievements');
     }
@@ -12,12 +12,25 @@ async function fetchAchievements() {
     renderAchievements();
   } catch (error) {
     console.error('Error fetching achievements:', error.message);
+    // HTTP fetch가 실패한 경우 로컬 JSON 파일에서 데이터 읽어오기
+    try {
+      const localAchievementsResponse = await fetch('data/achievements.json');
+      if (!localAchievementsResponse.ok) {
+        throw new Error('Failed to load local achievements data');
+      }
+      achievements = await localAchievementsResponse.json();
+      console.log('Local achievements loaded:', achievements);
+      renderAchievements();
+    } catch (localError) {
+      console.error('Error loading local achievements data:', localError.message);
+      // 예외 처리: 로컬 데이터를 로드하지 못한 경우 적절한 사용자 경험 처리 필요
+    }
   }
 }
 
 async function fetchCompletedAchievements() {
   try {
-    const response = await fetch('//64.110.110.12:5000/completed');
+    const response = await fetch('http://64.110.110.12:5000/completed');
     if (!response.ok) {
       throw new Error('Failed to fetch completed achievements');
     }
@@ -26,6 +39,19 @@ async function fetchCompletedAchievements() {
     renderAchievements();
   } catch (error) {
     console.error('Error fetching completed achievements:', error.message);
+    // HTTP fetch가 실패한 경우 로컬 JSON 파일에서 데이터 읽어오기
+    try {
+      const localCompletedAchievementsResponse = await fetch('data/completed.json');
+      if (!localCompletedAchievementsResponse.ok) {
+        throw new Error('Failed to load local completed achievements data');
+      }
+      completedAchievements = await localCompletedAchievementsResponse.json();
+      console.log('Local completed achievements loaded:', completedAchievements);
+      renderAchievements();
+    } catch (localError) {
+      console.error('Error loading local completed achievements data:', localError.message);
+      // 예외 처리: 로컬 데이터를 로드하지 못한 경우 적절한 사용자 경험 처리 필요
+    }
   }
 }
 
@@ -33,7 +59,7 @@ async function completeAchievement(id) {
   try {
     const pw = prompt('Enter password for verification:');
     if (!pw) return; // 사용자가 비밀번호를 입력하지 않았을 경우 처리
-    const response = await fetch('//64.110.110.12:5000/complete', {
+    const response = await fetch('http://64.110.110.12:5000/complete', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
