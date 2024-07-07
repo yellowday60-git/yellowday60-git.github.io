@@ -3,7 +3,7 @@ let completedAchievements = [];
 
 async function fetchAchievements() {
   try {
-    const response = await fetch('http://64.110.110.12:5000/achievements');
+    const response = await fetch('https://64.110.110.12:5000/achievements');
     if (!response.ok) {
       throw new Error('Failed to fetch achievements');
     }
@@ -17,7 +17,7 @@ async function fetchAchievements() {
 
 async function fetchCompletedAchievements() {
   try {
-    const response = await fetch('http://64.110.110.12:5000/completed');
+    const response = await fetch('https://64.110.110.12:5000/completed');
     if (!response.ok) {
       throw new Error('Failed to fetch completed achievements');
     }
@@ -33,7 +33,7 @@ async function completeAchievement(id) {
   try {
     const pw = prompt('Enter password for verification:');
     if (!pw) return; // 사용자가 비밀번호를 입력하지 않았을 경우 처리
-    const response = await fetch('http://64.110.110.12:5000/complete', {
+    const response = await fetch('https://64.110.110.12:5000/complete', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
