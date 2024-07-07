@@ -1,16 +1,21 @@
-const achievements = [];
+let achievements = JSON.parse(localStorage.getItem('achievements')) || [];
 
 function loadAchievements() {
-    fetch('data/achievements.json')
-        .then(response => response.json())
-        .then(data => {
-            achievements.push(...data);
-            displayAchievements('all');
-        });
+    if (achievements.length === 0) {
+        fetch('data/achievements.json')
+            .then(response => response.json())
+            .then(data => {
+                achievements = data;
+                saveAchievements();
+                displayAchievements('all');
+            });
+    } else {
+        displayAchievements('all');
+    }
 }
 
 function saveAchievements() {
-   localStorage.setItem('achievements', JSON.stringify(achievements));
+    localStorage.setItem('achievements', JSON.stringify(achievements));
 }
 
 function addAchievement(name, description, prerequisite) {
@@ -66,7 +71,7 @@ function displayRegisteredAchievements() {
     registeredList.innerHTML = '';
     achievements.forEach(ach => {
         const li = document.createElement('li');
-        li.textContent = `${ach.name} - ${ach.description} (ID: ${ach.id})`;
+        li.textContent = `${ach.name} - ${ach.description} ${ach.prerequisite ? `(선행 업적: ${ach.prerequisite})` : ''}`;
         registeredList.appendChild(li);
     });
 }
