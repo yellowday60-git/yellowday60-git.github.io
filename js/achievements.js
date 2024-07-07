@@ -31,12 +31,14 @@ async function fetchCompletedAchievements() {
 
 async function completeAchievement(id) {
   try {
+    const pw = prompt('Enter password for verification:');
+    if (!pw) return; // 사용자가 비밀번호를 입력하지 않았을 경우 처리
     const response = await fetch('http://64.110.110.12:5000/complete', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ id })
+      body: JSON.stringify({ id, pw })
     });
     if (!response.ok) {
       throw new Error('Failed to complete achievement');
