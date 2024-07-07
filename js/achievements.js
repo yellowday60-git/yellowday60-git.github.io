@@ -1,79 +1,39 @@
-let achievements = JSON.parse(localStorage.getItem('achievements')) || [];
+let achievements = []; // 업적 데이터를 저장할 전역 배열
 
+// 업적 데이터를 로드하는 함수
 function loadAchievements() {
-    if (achievements.length === 0) {
-        fetch('data/achievements.json')
-            .then(response => response.json())
-            .then(data => {
-                achievements = data;
-                saveAchievements();
-                displayAchievements('all');
-            });
-    } else {
-        displayAchievements('all');
-    }
+    // 실제로는 서버에서 데이터를 가져오는 코드가 여기에 들어갈 것입니다.
+    fetch('data/achievements.json')
+        .then(response => response.json())
+        .then(data => {
+            achievements = data;
+            displayAchievements('all'); // 데이터를 로드한 후 모든 업적을 표시
+        });
 }
 
-function saveAchievements() {
-    localStorage.setItem('achievements', JSON.stringify(achievements));
+// 업적을 특정 방식으로 필터링하여 표시하는 함수
+function displayAchievements(filter) {
+    const filteredAchievements = filterAchievements(filter); // filterAchievements 함수를 통해 필터링된 업적 데이터를 가져옴
+    displayAchievementsList(filteredAchievements); // 화면에 업적을 표시하는 함수 호출
 }
 
-function addAchievement(name, description, prerequisite) {
-    const id = achievements.length ? achievements[achievements.length - 1].id + 1 : 1;
-    achievements.push({ id, name, description, prerequisite: prerequisite || null, completed: false });
-    saveAchievements();
-    displayRegisteredAchievements();
-}
-
-function markAchievementAsCompleted(id) {
-    const achievement = achievements.find(ach => ach.id === id);
-    if (achievement) {
-        achievement.completed = true;
-        saveAchievements();
-        displayAchievements('all');
-    }
-}
-
+// 필터 옵션에 따라 업적을 필터링하는 함수 (예시용으로 구현된 것임)
 function filterAchievements(filter) {
-    let filteredAchievements;
-    if (filter === 'pending') {
-        filteredAchievements = achievements.filter(ach => !ach.completed);
-    } else if (filter === 'available') {
-        filteredAchievements = achievements.filter(ach => !ach.completed && (ach.prerequisite === null || achievements.find(pre => pre.id === ach.prerequisite).completed));
-    } else if (filter === 'completed') {
-        filteredAchievements = achievements.filter(ach => ach.completed);
+    if (filter === 'all') {
+        return achievements; // 모든 업적을 반환
     } else {
-        filteredAchievements = achievements;
+        // 필터링 로직을 추가할 수 있음 (미완료 업적, 완료된 업적 등)
+        return achievements.filter(ach => !ach.completed);
     }
-    displayAchievementsList(filteredAchievements);
 }
 
+// 화면에 업적을 표시하는 함수 (예시용으로 구현된 것임)
 function displayAchievementsList(list) {
     const achievementList = document.getElementById('achievement-list');
     achievementList.innerHTML = '';
     list.forEach(ach => {
         const li = document.createElement('li');
         li.textContent = `${ach.name} - ${ach.description}`;
-        
-        if (ach.completed) {
-            const trophyIcon = document.createElement('img');
-            trophyIcon.src = 'images/trophy.svg';
-            trophyIcon.alt = 'Trophy';
-            trophyIcon.classList.add('trophy-icon');
-            li.appendChild(trophyIcon);
-            li.classList.add('completed');
-        }
-
         achievementList.appendChild(li);
-    });
-}
-
-function displayRegisteredAchievements() {
-    const registeredList = document.getElementById('registered-achievements');
-    registeredList.innerHTML = '';
-    achievements.forEach(ach => {
-        const li = document.createElement('li');
-        li.textContent = `${ach.name} - ${ach.description} ${ach.prerequisite ? `(선행 업적: ${ach.prerequisite})` : ''}`;
-        registeredList.appendChild(li);
     });
 }
