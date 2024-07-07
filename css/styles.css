@@ -1,26 +1,31 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+#achievements {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left; 
 }
 
-header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 1rem;
-    text-align: center;
+#achievement-list li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 30px;
 }
 
-nav a {
-    margin: 0 1rem;
-    color: white;
-    text-decoration: none;
+.trophy-icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-main {
-    padding: 2rem;
+#achievement-list li.completed {
+    color: #6ab04c;
 }
 
-button {
-    margin: 0.5rem;
+#achievement-list li.completed .trophy-icon {
+    opacity: 1;
 }

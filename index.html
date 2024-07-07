@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,24 +7,15 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <header>
-        <h1>업적 관리 시스템</h1>
-        <nav>
-            <a href="admin.html">업적 등록</a>
-        </nav>
-    </header>
-    <main>
-        <section id="achievements">
-            <h2>업적 목록</h2>
-            <div>
-                <button onclick="filterAchievements('all')">모두 보기</button>
-                <button onclick="filterAchievements('pending')">미 완료</button>
-                <button onclick="filterAchievements('available')">달성 가능</button>
-                <button onclick="filterAchievements('completed')">달성 완료</button>
-            </div>
-            <ul id="achievement-list"></ul>
-        </section>
-    </main>
+    <h1>나의 업적 리스트</h1>
+    
+    <div id="achievements">
+        <h2>전체 업적</h2>
+        <ul id="achievement-list">
+            <!-- 업적 리스트가 여기에 동적으로 추가될 예정 -->
+        </ul>
+    </div>
+
     <script src="js/achievements.js"></script>
     <script src="js/main.js"></script>
 </body>

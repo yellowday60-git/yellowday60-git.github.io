@@ -54,14 +54,16 @@ function displayAchievementsList(list) {
     list.forEach(ach => {
         const li = document.createElement('li');
         li.textContent = `${ach.name} - ${ach.description}`;
-        if (!ach.completed) {
-            const button = document.createElement('button');
-            button.textContent = '달성';
-            button.onclick = () => markAchievementAsCompleted(ach.id);
-            li.appendChild(button);
-        } else {
-            li.textContent += ' (완료)';
+        
+        if (ach.completed) {
+            const trophyIcon = document.createElement('img');
+            trophyIcon.src = 'images/trophy.svg';
+            trophyIcon.alt = 'Trophy';
+            trophyIcon.classList.add('trophy-icon');
+            li.appendChild(trophyIcon);
+            li.classList.add('completed');
         }
+
         achievementList.appendChild(li);
     });
 }
